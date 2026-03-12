@@ -2,7 +2,7 @@
 
 ## Project Summary
 Handcrafted Haven is a web application designed to provide a platform for artisans and crafters to showcase
-and sell their handcrafted items. The platform acts as a vritual marketplace where creators can connect with
+and sell their handcrafted items. The platform acts as a virtual marketplace where creators can connect with
 customers who appreciate handmade products
 
 ## Group members

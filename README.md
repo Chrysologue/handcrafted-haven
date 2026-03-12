@@ -9,3 +9,4 @@ customers who appreciate handmade products
 - Sairi Patricio Conejo Flores
 - Isaac Orlando Maldonado Soto
 - Xyste Chrysologue RABEARSON
+- Natnael Gashaw Endashaw

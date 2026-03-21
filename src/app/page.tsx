@@ -1,3 +1,9 @@
+import ProductsCarousel from './products/products';
+
+export default function Home() {
+  return (
+    <div>
+      <ProductsCarousel />
 
 import Hero from "./components/Hero";
 

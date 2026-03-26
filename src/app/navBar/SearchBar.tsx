@@ -1,12 +1,18 @@
 'use client';
 
-export default function SearchBar({ onSearch, searchTerm, setSearchTerm }) {
-    const handleSearch = (e: React.FormEvent) => {
+type SearchBarProps = {
+  onSearch?: (term: string) => void;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export default function SearchBar({ onSearch, searchTerm, setSearchTerm }: SearchBarProps) {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (onSearch) {
-        onSearch(searchTerm);
+      onSearch(searchTerm);
     }
-    };
+  };
 
     return (
         <form onSubmit={handleSearch} className="hidden md:block py-4 border-t border-gray-200 dark:border-gray-800">

@@ -1,23 +1,24 @@
-'use client';
-import React, { useState } from 'react';
-import SearchBar from './SearchBar';
+"use client";
+import React, { useState } from "react";
+import SearchBar from "./SearchBar";
+import Link from "next/link";
 
 interface HeaderProps {
   onSearch?: (searchTerm: string) => void;
 }
 
 export default function Header({ onSearch }: HeaderProps) {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'Products', href: '/products' },
-    { name: 'Log In', href: '/login' },
-    { name: 'Register', href: '/register' },
-    { name: 'Trending', href: '/trending' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
+    { name: "Home", href: "/" },
+    { name: "Products", href: "/products" },
+    { name: "Log In", href: "/login" },
+    { name: "Register", href: "/register" },
+    { name: "Trending", href: "/trending" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -25,8 +26,6 @@ export default function Header({ onSearch }: HeaderProps) {
       <div className="width-full container mx-auto px-4">
         {/* Top row with logo and mobile menu button */}
         <div className="flex items-center justify-between h-16">
-          
-
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -59,20 +58,28 @@ export default function Header({ onSearch }: HeaderProps) {
         </div>
 
         {/* Navigation Links - Desktop */}
+
         <nav className="hidden md:flex space-x-6 py-3 border-t border-gray-200 dark:border-gray-800">
+          <Link href="/" className="font-bold text-[var(--foreground)]">
+            Handcrafted Haven
+          </Link>
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.name}
               href={link.href}
               className="text-[var(--foreground)] hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </nav>
 
         {/* Search Bar - Desktop */}
-        <SearchBar onSearch={onSearch} searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <SearchBar
+          onSearch={onSearch}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
       </div>
     </header>
   );

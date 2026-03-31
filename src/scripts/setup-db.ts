@@ -21,6 +21,17 @@ async function setupDatabase() {
       -- Drop existing tables if they exist
       DROP TABLE IF EXISTS reviews CASCADE;
       DROP TABLE IF EXISTS products CASCADE;
+      DROP TABLE IF EXISTS users CASCADE;
+      
+      -- Create users table
+      CREATE TABLE users (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        password_hash VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
       
       -- Create products table
       CREATE TABLE products (
@@ -51,6 +62,7 @@ async function setupDatabase() {
       );
       
       -- Create indexes
+      CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
       CREATE INDEX IF NOT EXISTS idx_products_category ON products(category);
       CREATE INDEX IF NOT EXISTS idx_products_is_featured ON products(is_featured);
       CREATE INDEX IF NOT EXISTS idx_reviews_product_id ON reviews(product_id);

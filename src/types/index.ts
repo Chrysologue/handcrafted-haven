@@ -38,3 +38,18 @@ export interface ProductFormData {
   description: string;
   location: string;
 }
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  passwordHash: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface UserFormData {
+  name: string;
+  email: string;
+  password: string;
+}

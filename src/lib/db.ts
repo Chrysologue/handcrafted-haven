@@ -20,4 +20,15 @@ export async function query(text: string, params?: any[]) {
   }
 }
 
+export async function checkUsers() {
+  try {
+    const result = await query("SELECT id, name, email FROM users");
+    console.log("Users in database:", result.rows);
+    return result.rows;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    return [];
+  }
+}
+
 export default pool;

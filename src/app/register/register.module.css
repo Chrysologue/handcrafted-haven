@@ -1,0 +1,126 @@
+:root {
+    --page-bg: #000000;
+    --form-bg: #F5F9E9;
+    --text-color: #36453B;
+    --border-color: #F5F9E9;
+    --button-bg: #515751;
+    --button-hover-bg: #596869;
+}
+
+.registrationFormContainer {
+    background: var(--page-bg);
+    color: var(--text-color);
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: var(--form-bg);
+}
+
+.registrationFormContainer h1 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.registrationFormContainer p {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+}
+
+.registrationFormContainer label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.registrationFormContainer p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.registrationFormContainer form div {
+    margin-bottom: 1rem;
+}
+
+.registrationFormContainer label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.registrationFormContainer input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.registrationFormContainer input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.registrationFormContainer button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #515751;
+    color: #F5F9E9;
+    border: 1px solid #F5F9E9;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.registrationFormContainer button:hover {
+    background-color: #596869;
+}
+
+.registrationFormContainer button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.checkUsersButton {
+    margin-top: 1rem;
+    background-color: #28a745;
+}
+
+.checkUsersButton:hover {
+    background-color: #218838;
+}
+
+.usersList {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+.usersList h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.usersList ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.usersList li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.usersList li:last-child {
+    border-bottom: none;
+}

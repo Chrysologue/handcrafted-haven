@@ -1,4 +1,4 @@
--- Drop existing tables if they exist 
+ -- Drop existing tables if they exist 
 DROP TABLE IF EXISTS reviews CASCADE;
 DROP TABLE IF EXISTS products CASCADE;
 
@@ -34,3 +34,18 @@ CREATE TABLE reviews (
 CREATE INDEX IF NOT EXISTS idx_products_category ON products(category);
 CREATE INDEX IF NOT EXISTS idx_products_is_featured ON products(is_featured);
 CREATE INDEX IF NOT EXISTS idx_reviews_product_id ON reviews(product_id);
+
+
+--USERS-----------------------------------
+-- Create users table
+CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(255) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        role VARCHAR(50) DEFAULT 'user',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+--relation: reviews with users
+ ALTER TABLE reviews
+      ADD COLUMN IF NOT EXISTS user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;

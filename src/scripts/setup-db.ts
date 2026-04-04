@@ -50,6 +50,17 @@ async function setupDatabase() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
       
+      -- Create contact_messages table
+      CREATE TABLE contact_messages (
+        id SERIAL PRIMARY KEY,
+        first_name VARCHAR(255) NOT NULL,
+        last_name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        subject VARCHAR(255) NOT NULL,
+        message TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+      
       -- Create indexes
       CREATE INDEX IF NOT EXISTS idx_products_category ON products(category);
       CREATE INDEX IF NOT EXISTS idx_products_is_featured ON products(is_featured);

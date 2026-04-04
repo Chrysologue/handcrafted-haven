@@ -12,7 +12,6 @@ export default function Header({ onSearch }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "/" },
     { name: "Products", href: "/products" },
     { name: "Log In", href: "/login" },
     { name: "Register", href: "/register" },

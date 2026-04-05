@@ -13,6 +13,7 @@ export default function Header({ onSearch }: HeaderProps) {
 
   const navLinks = [
     { name: "Products", href: "/products" },
+    { name: "Favorites", href: "/favorites" },
     { name: "Log In", href: "/login" },
     { name: "Register", href: "/register" },
     { name: "Trending", href: "/trending" },

@@ -76,39 +76,6 @@ async function testDatabase() {
       console.log("Reviews table does not exist\n");
     }
 
-<<<<<<< HEAD
-    // Test 4: Check if users table exists
-    console.log("4. Checking users table...");
-    const usersTableCheck = await pool.query(`
-      SELECT EXISTS (
-        SELECT FROM information_schema.tables 
-        WHERE table_name = 'users'
-      ) as exists;
-    `);
-
-    if (usersTableCheck.rows[0].exists) {
-      console.log("Users table exists");
-
-      // Get table structure
-      const userColumns = await pool.query(`
-        SELECT column_name, data_type
-        FROM information_schema.columns
-        WHERE table_name = 'users'
-        ORDER BY ordinal_position;
-      `);
-
-      console.log("   Table columns:");
-      userColumns.rows.forEach((col) => {
-        console.log(`     - ${col.column_name}: ${col.data_type}`);
-      });
-
-      const usersCount = await pool.query(
-        "SELECT COUNT(*) as count FROM users",
-      );
-      console.log(`Current users count: ${usersCount.rows[0].count}\n`);
-    } else {
-      console.log("Users table does not exist\n");
-=======
     // Test 4: Check if contact_messages table exists
     console.log("4. Checking contact_messages table...");
     const contactTableCheck = await pool.query(`
@@ -127,7 +94,6 @@ async function testDatabase() {
       console.log(`Current contact messages count: ${contactCount.rows[0].count}\n`);
     } else {
       console.log("Contact messages table does not exist\n");
->>>>>>> origin/main
     }
 
     // Test 5: Show existing products (if any)

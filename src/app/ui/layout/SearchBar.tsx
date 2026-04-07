@@ -1,4 +1,6 @@
+
 'use client';
+import './SearchBar.css';
 
 type SearchBarProps = {
   onSearch?: (term: string) => void;
@@ -15,23 +17,23 @@ export default function SearchBar({ onSearch, searchTerm, setSearchTerm }: Searc
   };
 
     return (
-        <form onSubmit={handleSearch} className="hidden md:block py-4 border-t border-gray-200 dark:border-gray-800">
-          <div className="relative max-w-2xl mx-auto">
+        <form onSubmit={handleSearch} className="searchbar-form">
+          <div className="searchbar-container">
             <input
               type="text"
               placeholder="Search products..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg bg-[var(--background)] text-[var(--foreground)] focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 dark:focus:border-blue-400 dark:focus:ring-blue-400"
+              className="searchbar-input"
               aria-label="Search products"
             />
             <button
               type="submit"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="searchbar-button"
               aria-label="Submit search"
             >
               <svg
-                className="w-5 h-5"
+                className="searchbar-svg"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

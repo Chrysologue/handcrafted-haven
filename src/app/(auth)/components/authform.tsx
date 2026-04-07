@@ -1,8 +1,10 @@
 'use server'
 
 import { loginAction, registerAction } from "../utils/actions";
+
 import Button from "./button";
 import InputForm from "./input";
+import styles from "./authform.module.css";
 
 export default async function AuthForm({ type }: { type: string }) {
 
@@ -18,7 +20,7 @@ export default async function AuthForm({ type }: { type: string }) {
     return (
         <form
             action={sendForm}
-            className="flex flex-col justify-center items-center w-[90%] md:w-4/6 lg:w-3/6 mx-auto my-10 p-8 shadow-blue-900 shadow-2xl rounded-2xl"
+            className={styles.authFormContainer}
         >
             <InputForm id="username" name="username" type="text" placeholder="John Doe" />
             <InputForm id="email" name="email" type="email" placeholder="example@mail.com" />

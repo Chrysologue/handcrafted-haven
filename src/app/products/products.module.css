@@ -1,7 +1,8 @@
 .productsContainer {
   width: 100%;
   padding: 60px 20px;
-  background: linear-gradient(135deg, #f5f9e9 0%, #ffffff 100%);
+  background: var(--content-background);
+  color: var(--foreground);
 }
 
 .productsWrapper {
@@ -12,7 +13,7 @@
 .sectionTitle {
   font-size: 36px;
   font-weight: 700;
-  color: #36453b;
+  color: var(--foreground);
   text-align: center;
   margin: 0 0 50px 0;
   letter-spacing: -0.5px;
@@ -27,8 +28,8 @@
 .card {
   display: flex;
   flex-direction: column;
-  background: #f5f9e9;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 50%, #d1d5db 100%);
+  border-radius: 25px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(54, 69, 59, 0.1);
   transition: all 0.3s ease;
@@ -44,7 +45,7 @@
   position: relative;
   width: 100%;
   height: 250px;
-  background: #e8e6db;
+  background: linear-gradient(135deg, #fef3c7 0%, #ffe4e6 50%, #c7d2fe 100%);
   overflow: hidden;
 }
 
@@ -80,7 +81,7 @@
 .productName {
   font-size: 18px;
   font-weight: 700;
-  color: #36453b;
+  color: var(--background);
   margin: 0;
   line-height: 1.3;
 }
@@ -100,7 +101,7 @@
 
 .description {
   font-size: 14px;
-  color: #515751;
+  color: var(--background);
   line-height: 1.5;
   margin: 10px 0 0 0;
   flex-grow: 1;
@@ -135,13 +136,14 @@
 .price {
   font-size: 18px;
   font-weight: 700;
-  color: #36453b;
+  color: var(--background);
 }
 
 .loadingContainer {
   text-align: center;
   padding: 60px 20px;
-  background: linear-gradient(135deg, #f5f9e9 0%, #ffffff 100%);
+  background: var(--background);
+  color: var(--foreground);
   min-height: 400px;
   display: flex;
   flex-direction: column;

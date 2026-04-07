@@ -1,0 +1,32 @@
+.searchbar-form {
+  display: block;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.searchbar-container {
+  position: relative;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.searchbar-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  color: var(--background);
+}
+
+.searchbar-button {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--background);
+}
+
+.searchbar-svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}

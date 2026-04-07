@@ -1,7 +1,11 @@
+
 "use client";
 import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
+import "./navbar.css";
+import "./navbar.responsive.css";
+import "./navbar.hamburger.css";
 
 interface HeaderProps {
   onSearch?: (searchTerm: string) => void;
@@ -21,18 +25,18 @@ export default function Header({ onSearch }: HeaderProps) {
   ];
 
   return (
-    <header className="width-full top-0 z-50 bg-[var(--background)] border-b border-gray-200 dark:border-gray-800">
-      <div className="width-full container mx-auto px-4">
+    <header className="navbar-header">
+      <div className="navbar-container">
         {/* Top row with logo and mobile menu button */}
-        <div className="flex items-center justify-between h-16">
+        <div className="navbar-toprow">
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-md text-[var(--foreground)] hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none transition-colors"
+            className="navbar-mobile-btn"
             aria-label="Toggle menu"
           >
             <svg
-              className="h-6 w-6"
+              className="navbar-svg"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -57,16 +61,15 @@ export default function Header({ onSearch }: HeaderProps) {
         </div>
 
         {/* Navigation Links - Desktop */}
-
-        <nav className="hidden md:flex space-x-6 py-3 border-t border-gray-200 dark:border-gray-800">
-          <Link href="/" className="font-bold text-[var(--foreground)]">
+        <nav className="navbar-nav">
+          <Link href="/" className="navbar-link">
             Handcrafted Haven
           </Link>
           {navLinks.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-[var(--foreground)] hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+              className="navbar-link-secondary"
             >
               {link.name}
             </Link>

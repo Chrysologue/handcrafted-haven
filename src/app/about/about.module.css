@@ -1,0 +1,146 @@
+/* About Page CSS using your palette */
+.about-section {
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.about-hero {
+  background: linear-gradient(90deg, var(--accent-1) 0%, var(--accent-2) 100%);
+  padding: 5rem 0;
+  text-align: center;
+}
+
+.about-hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: var(--font-roboto-slab, serif);
+  color: var(--background);
+  margin-bottom: 1.5rem;
+}
+
+.about-hero-desc {
+  font-size: 1.5rem;
+  color: var(--content-background);
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.about-section-inner {
+  padding: 4rem 0;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.about-story-title,
+.about-mission-title,
+.about-values-title,
+.about-artisans-title,
+.about-choose-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  font-family: var(--font-roboto-slab, serif);
+  margin-bottom: 2rem;
+  color: var(--foreground);
+  text-align: center;
+}
+
+.about-story-desc,
+.about-mission-desc,
+.about-values-desc,
+.about-artisans-desc {
+  font-size: 1.125rem;
+  color: var(--accent-1);
+  margin-bottom: 1.5rem;
+}
+
+.about-card,
+.about-value-card,
+.about-artisan-card {
+  background: var(--content-background);
+  color: var(--foreground);
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(71, 85, 105, 0.12);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.about-card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-family: var(--font-roboto-slab, serif);
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.about-card-desc {
+  color: var(--accent-2);
+  font-size: 1rem;
+}
+
+.about-stats {
+  background: linear-gradient(90deg, var(--accent-1) 0%, var(--accent-2) 100%);
+  color: var(--background);
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.about-stat {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.about-stat-label {
+  color: var(--content-background);
+  font-size: 1.125rem;
+}
+
+.about-cta {
+  background: linear-gradient(90deg, var(--accent-1) 0%, var(--accent-2) 100%);
+  color: var(--background);
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.about-cta-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  font-family: var(--font-roboto-slab, serif);
+  margin-bottom: 1.5rem;
+}
+
+.about-cta-desc {
+  font-size: 1.25rem;
+  color: var(--content-background);
+  margin-bottom: 2rem;
+}
+
+.about-cta-btn,
+.about-cta-btn-alt {
+  display: inline-block;
+  font-weight: 600;
+  padding: 1rem 2.5rem;
+  border-radius: 0.5rem;
+  margin: 0 0.5rem;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.about-cta-btn {
+  background: var(--background);
+  color: var(--accent-1);
+  border: none;
+}
+.about-cta-btn:hover {
+  background: var(--accent-1);
+  color: var(--background);
+}
+.about-cta-btn-alt {
+  background: transparent;
+  color: var(--background);
+  border: 2px solid var(--background);
+}
+.about-cta-btn-alt:hover {
+  background: var(--background);
+  color: var(--accent-1);
+}

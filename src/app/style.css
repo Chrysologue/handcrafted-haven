@@ -1,0 +1,16 @@
+.home-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+}
+
+@media (prefers-color-scheme: dark) {
+  .home-root {
+    background: var(--content-background);
+    color: var(--foreground);
+  }
+}

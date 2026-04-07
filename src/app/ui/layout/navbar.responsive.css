@@ -1,0 +1,28 @@
+@media (max-width: 768px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: stretch;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  .navbar-toprow {
+    height: 3.5rem;
+  }
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    border-top: 1px solid #e5e7eb;
+    align-items: flex-start;
+  }
+}
+
+.navbar-container {
+  flex-direction: column;
+  align-items: center;
+}
+
+.navbar-nav {
+  justify-content: center;
+  align-items: center;
+}

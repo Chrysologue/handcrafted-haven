@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface HeaderProps {
   onSearch?: (searchTerm: string) => void;
@@ -10,6 +11,7 @@ interface HeaderProps {
 export default function Header({ onSearch }: HeaderProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const navLinks = [
     { name: "Products", href: "/products" },
@@ -74,11 +76,7 @@ export default function Header({ onSearch }: HeaderProps) {
         </nav>
 
         {/* Search Bar - Desktop */}
-        <SearchBar
-          onSearch={onSearch}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
+        {pathname === '/products' && <SearchBar/>}
       </div>
     </header>
   );

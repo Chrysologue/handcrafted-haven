@@ -6,6 +6,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get("category");
     const featured = searchParams.get("featured");
+    const search = searchParams.get("search");
+    console.log("Received query parameters:", { category, featured, search });
 
     let sql = "SELECT * FROM products";
     const params: any[] = [];
@@ -21,11 +23,18 @@ export async function GET(request: NextRequest) {
       params.push(true);
     }
 
+    if (search) {
+      conditions.push(`name ILIKE $${params.length + 1}`);
+      params.push(`%${search}%`);
+    }
+
     if (conditions.length > 0) {
       sql += " WHERE " + conditions.join(" AND ");
     }
 
     sql += " ORDER BY created_at DESC";
+
+    console.log("Final SQL:", sql, "Params:", params);
 
     const result = await query(sql, params);
 

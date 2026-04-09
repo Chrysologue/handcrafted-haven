@@ -14,6 +14,7 @@ CREATE TABLE products (
   reviews INTEGER DEFAULT 0,
   image TEXT NOT NULL,
   is_featured BOOLEAN DEFAULT FALSE,
+  is_trending BOOLEAN DEFAULT FALSE,
   description TEXT NOT NULL,
   location VARCHAR(255) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -33,6 +34,7 @@ CREATE TABLE reviews (
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_products_category ON products(category);
 CREATE INDEX IF NOT EXISTS idx_products_is_featured ON products(is_featured);
+  CREATE INDEX IF NOT EXISTS idx_products_is_trending ON products(is_trending);
 CREATE INDEX IF NOT EXISTS idx_reviews_product_id ON reviews(product_id);
 
 

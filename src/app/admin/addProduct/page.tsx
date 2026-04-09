@@ -16,6 +16,7 @@ export default function AddProductPage() {
     reviews: "0",
     image: "",
     isFeatured: false,
+    isTrending: false,
     description: "",
     location: "",
   });
@@ -274,7 +275,17 @@ export default function AddProductPage() {
             />
             <label htmlFor="isFeatured">Feature this product on homepage</label>
           </div>
-
+          <div className={styles.checkboxGroup}>
+            <input
+              type="checkbox"
+              id="isTrending"
+              name="isTrending"
+              checked={formData.isTrending}
+              onChange={handleChange}
+              className={styles.checkbox}
+            />
+            <label htmlFor="isTrending">🔥 Mark as Trending</label>
+          </div>
           <div className={styles.buttonGroup}>
             <button
               type="button"

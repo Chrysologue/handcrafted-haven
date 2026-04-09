@@ -10,27 +10,24 @@ import styles from "./products.module.css";
 interface ProductsPageProps {
   featuredOnly?: boolean;
   title?: string;
+  search?: string;
+  page?: number;
 }
 
 export default function ProductsCarousel({
   featuredOnly = false,
-  title = "All Products",
-}: ProductsPageProps) {
+  title = "Featured Products",
+  search = "",
+  page = 1,
+}: ProductsCarouselProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [categories, setCategories] = useState<string[]>([]);
-  const { isFavorite, toggleFavorite } = useFavorites();
-
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
-  const [minRating, setMinRating] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState("newest");
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     fetchProducts();
-  }, [featuredOnly]);
+  }, [featuredOnly, search, page]); // Ahora depende de search y page también
 
   useEffect(() => {
     if (!featuredOnly) {
@@ -47,59 +44,43 @@ export default function ProductsCarousel({
   ]);
 
   const fetchProducts = async () => {
+    setLoading(true);
     try {
-      const url = featuredOnly
-        ? "/api/products?featured=true"
-        : "/api/products";
+      // Construir URL con todos los parámetros
+      const params = new URLSearchParams();
+      
+      if (featuredOnly) {
+        params.append("featured", "true");
+      }
+      
+      if (search && search.trim() !== "") {
+        params.append("search", search);
+      }
+      
+      if (page) {
+        params.append("page", page.toString());
+      }
+      
+      const url = `/api/products${params.toString() ? `?${params.toString()}` : ""}`;
       const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch products: ${response.status}`);
-      }
-
+      
+      if (!response.ok) throw new Error("Failed to fetch products");
+      
       const data = await response.json();
-
-      const productsArray = Array.isArray(data) ? data : [];
-
-      const mappedProducts: Product[] = productsArray.map((item: any) => ({
-        id: item.id,
-        name: item.name || "",
-        artisan: item.artisan || "",
-        category: item.category || "",
-        price:
-          typeof item.price === "string"
-            ? parseFloat(item.price)
-            : item.price || 0,
-        currency: item.currency || "USD",
-        rating:
-          typeof item.rating === "string"
-            ? parseFloat(item.rating)
-            : item.rating || 0,
-        reviews:
-          typeof item.reviews === "string"
-            ? parseInt(item.reviews)
-            : item.reviews || 0,
-        image: item.image || "",
-        isFeatured: item.isFeatured ?? item.is_featured ?? false,
-        description: item.description || "",
-        location: item.location || "",
-        createdAt: item.createdAt || item.created_at,
-        updatedAt: item.updatedAt || item.updated_at,
-      }));
-
-      setProducts(mappedProducts);
-
-      if (!featuredOnly) {
-        const uniqueCategories = [
-          ...new Set(mappedProducts.map((p: Product) => p.category)),
-        ];
-        setCategories(uniqueCategories);
-        setFilteredProducts(mappedProducts);
-      } else {
-        setFilteredProducts(mappedProducts);
+      console.log("Fetched products:", data);
+      
+      // Asumiendo que tu API devuelve { products: [], pagination: { totalPages } }
+      // Si tu API aún devuelve solo el array, usa esto:
+      setProducts(Array.isArray(data) ? data : data.products || []);
+      
+      // Si tu API devuelve pagination info
+      if (data.pagination) {
+        setTotalPages(data.pagination.totalPages);
       }
+      
     } catch (error) {
       console.error("Failed to fetch products:", error);
+      setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -176,49 +157,31 @@ export default function ProductsCarousel({
 
   if (filteredProducts.length === 0 && !loading) {
     return (
-      <div className={styles.noResultsContainer}>
-        <p>No products found.</p>
-        {!featuredOnly && (
-          <button onClick={clearFilters} className={styles.clearBtn}>
-            Clear Filters
-          </button>
-        )}
-      </div>
+      <section className={styles.productsContainer}>
+        <div className={styles.productsWrapper}>
+          <h2 className={styles.sectionTitle}>
+            {search ? `Search Results for "${search}"` : title}
+          </h2>
+          <p className={styles.noProducts}>
+            {search ? "No products found matching your search." : "No products found."}
+          </p>
+        </div>
+      </section>
     );
   }
 
   return (
-    <div
-      className={featuredOnly ? styles.featuredContainer : styles.productsPage}
-    >
-      {/* Only show filters sidebar when NOT in featuredOnly mode */}
-      {!featuredOnly && (
-        <aside className={styles.filtersSidebar}>
-          <h3 className={styles.filtersTitle}>Filters</h3>
-
-          <button onClick={clearFilters} className={styles.clearFiltersBtn}>
-            Clear All Filters
-          </button>
-
-          {/* Search */}
-          <div className={styles.filterGroup}>
-            <label className={styles.filterLabel}>Search</label>
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className={styles.filterInput}
-            />
-          </div>
-
-          {/* Category Filter */}
-          <div className={styles.filterGroup}>
-            <label className={styles.filterLabel}>Category</label>
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className={styles.filterSelect}
+    <section className={styles.productsContainer}>
+      <div className={styles.productsWrapper}>
+        <h2 className={styles.sectionTitle}>
+          {search ? `Search Results for "${search}"` : title}
+        </h2>
+        <div className={styles.cardsGrid}>
+          {products.map((product) => (
+            <Link
+              href={`/products/${product.id}`}
+              key={product.id}
+              className={styles.cardLink}
             >
               <option value="">All Categories</option>
               {categories.map((cat) => (
@@ -367,13 +330,11 @@ export default function ProductsCarousel({
             </div>
           ))}
         </div>
-
-        {filteredProducts.length === 0 && !featuredOnly && (
-          <div className={styles.noResults}>
-            <p>No products found matching your criteria.</p>
-            <button onClick={clearFilters} className={styles.clearBtn}>
-              Clear Filters
-            </button>
+        
+        {/* Paginación - opcional, si quieres mostrarla */}
+        {totalPages > 1 && (
+          <div className={styles.pagination}>
+            <span>Page {page} of {totalPages}</span>
           </div>
         )}
       </div>

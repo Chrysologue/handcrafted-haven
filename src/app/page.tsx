@@ -1,6 +1,7 @@
-import ProductsCarousel from "./products/products";
+import ProductsPage from "./products/products";
 import Hero from "./components/Hero";
 import Header from "./navBar/navbar";
+import ProductsCarousel from "./products/products";
 
 export default async function Page(props: {
   searchParams?: Promise<{

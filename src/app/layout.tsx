@@ -4,6 +4,7 @@ import { Geist, Geist_Mono, Roboto_Slab } from "next/font/google";
 import "./globals.css";
 import Footer from "./Footer/page";
 import Header from "./navBar/navbar";
+import { FavoritesProvider } from "@/context/FavoritesContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,11 +43,13 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-          <Header />
-        </div>
-        <main>{children}</main>
-        <Footer />
+        <FavoritesProvider>
+          <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+            <Header />
+          </div>
+          <main>{children}</main>
+          <Footer />
+        </FavoritesProvider>
       </body>
     </html>
   );

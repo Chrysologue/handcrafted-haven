@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./productDetail.module.css";
+import { useFavorites } from "@/context/FavoritesContext";
 
 interface Product {
   id: number;
@@ -36,6 +37,7 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { isFavorite, toggleFavorite } = useFavorites();
   const [review, setReview] = useState({
     rating: 5,
     comment: "",
@@ -126,7 +128,17 @@ export default function ProductDetailPage() {
             <p className={styles.description}>{product.description}</p>
           </div>
 
-          <button className={styles.addToCartBtn}>Add to Cart</button>
+          {/* <button className={styles.addToCartBtn}>Add to Cart</button> */}
+          <div className={styles.favoriteSection}>
+            <button
+              onClick={() => toggleFavorite(product.id)}
+              className={styles.favoriteBtn}
+            >
+              {isFavorite(product.id)
+                ? "❤️ Remove from Favorites"
+                : "🤍 Add to Favorites"}
+            </button>
+          </div>
         </div>
       </div>
 

@@ -276,6 +276,82 @@
     color: #d32f2f;
 }
 
+
+.favoriteSection {
+    margin: 10px 0;
+}
+
+.favoriteBtn:active {
+    animation: heartBeat 0.3s ease;
+}
+
+.favoriteBtn {
+    background: none;
+    border: 2px solid #36453b;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background: #36453b;
+    color: white;
+}
+
+.favoriteBtn:hover {
+    background: #f5f9e9;
+    transform: translateY(-2px);
+    border-color: #596869;
+    color: #596869;
+}
+
+.loading {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f5f9e9 0%, #ffffff 100%);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #596869;
+}
+
+.error {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f5f9e9 0%, #ffffff 100%);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #d32f2f;
+}
+
+.error button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #36453b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.error button:hover {
+    background: #596869;
+}
+
+
 @media (max-width: 768px) {
     .productDetail {
         grid-template-columns: 1fr;
@@ -302,4 +378,29 @@
     .reviewsSection {
         padding: 20px;
     }
+
+    .favoriteBtn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .favoriteSection {
+        margin: 15px 0;
+    }
+}
+
+/* Optional: Add a subtle animation for favorite button */
+@keyframes heartBeat {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
 }

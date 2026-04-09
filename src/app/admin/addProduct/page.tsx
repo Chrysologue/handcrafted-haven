@@ -90,7 +90,7 @@ export default function AddProductPage() {
 
       // Reset form after 2 seconds and redirect
       setTimeout(() => {
-        router.push(`/products`);
+        router.push(`/products/${product.id}`);
       }, 2000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create product");

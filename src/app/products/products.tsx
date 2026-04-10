@@ -10,11 +10,15 @@ import styles from "./products.module.css";
 interface ProductsPageProps {
   featuredOnly?: boolean;
   title?: string;
+  search?: string;
+  page?: number;
 }
 
 export default function ProductsCarousel({
   featuredOnly = false,
   title = "All Products",
+  search,
+  page,
 }: ProductsPageProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);

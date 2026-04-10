@@ -19,12 +19,12 @@ export default function Hero() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link href="#"
+            <Link href="/products"
               className="inline-flex w-full items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-slate-500/20 transition hover:-translate-y-0.5 sm:w-auto"
             >
               Explore creations
             </Link>
-            <Link href="#"
+            <Link href="/login"
               className="inline-flex w-full items-center justify-center rounded-xl border border-slate-900 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100 sm:w-auto"
             >
               Start selling

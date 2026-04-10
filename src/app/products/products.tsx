@@ -85,6 +85,7 @@ export default function ProductsCarousel({
             : item.reviews || 0,
         image: item.image || "",
         isFeatured: item.isFeatured ?? item.is_featured ?? false,
+        isTrending: item.isTrending ?? item.is_trending ?? false,
         description: item.description || "",
         location: item.location || "",
         createdAt: item.createdAt || item.created_at,

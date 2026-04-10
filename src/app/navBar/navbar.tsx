@@ -76,6 +76,37 @@ export default function Header({ onSearch }: HeaderProps) {
           ))}
         </nav>
 
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden border-t border-gray-200 dark:border-gray-800">
+            <nav className="px-2 pt-2 pb-3 space-y-1">
+              <Link
+                href="/"
+                className="block px-3 py-2 font-bold text-[var(--foreground)] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Handcrafted Haven
+              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="block px-3 py-2 text-[var(--foreground)] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+            {/* Mobile Search Bar */}
+            {pathname === '/products' && (
+              <div className="px-2 pb-3">
+                <SearchBar />
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Search Bar - Desktop */}
         {pathname === '/products' && <SearchBar/>}
       </div>

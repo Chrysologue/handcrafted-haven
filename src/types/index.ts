@@ -9,6 +9,7 @@ export interface Product {
   reviews: number;
   image: string;
   isFeatured: boolean; // camelCase for frontend
+  isTrending: boolean;
   description: string;
   location: string;
   createdAt?: Date;
@@ -35,6 +36,7 @@ export interface ProductFormData {
   reviews: string;
   image: string;
   isFeatured: boolean; // camelCase
+  isTrending: boolean;
   description: string;
   location: string;
 }

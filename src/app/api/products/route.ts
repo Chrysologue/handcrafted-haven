@@ -6,6 +6,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get("category");
     const featured = searchParams.get("featured");
+    const trending = searchParams.get("trending");
     const search = searchParams.get("search");
     console.log("Received query parameters:", { category, featured, search });
 
@@ -20,6 +21,11 @@ export async function GET(request: NextRequest) {
 
     if (featured === "true") {
       conditions.push(`is_featured = $${params.length + 1}`);
+      params.push(true);
+    }
+
+    if (trending === "true") {
+      conditions.push(`is_trending = $${params.length + 1}`);
       params.push(true);
     }
 
@@ -50,6 +56,7 @@ export async function GET(request: NextRequest) {
       reviews: product.reviews,
       image: product.image,
       isFeatured: product.is_featured,
+      isTrending: product.is_trending,
       description: product.description,
       location: product.location,
       createdAt: product.created_at,
@@ -73,8 +80,8 @@ export async function POST(request: NextRequest) {
     const sql = `
       INSERT INTO products (
         name, artisan, category, price, currency, 
-        rating, reviews, image, is_featured, description, location
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+        rating, reviews, image, is_featured, is_trending, description, location
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
       RETURNING *
     `;
 
@@ -88,6 +95,7 @@ export async function POST(request: NextRequest) {
       parseInt(body.reviews) || 0,
       body.image,
       body.isFeatured === true || body.isFeatured === "true",
+      body.isTrending === true || body.isTrending === "true",
       body.description,
       body.location,
     ];
@@ -107,6 +115,7 @@ export async function POST(request: NextRequest) {
       reviews: product.reviews,
       image: product.image,
       isFeatured: product.is_featured,
+      isTrending: product.is_trending,
       description: product.description,
       location: product.location,
       createdAt: product.created_at,

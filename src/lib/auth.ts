@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import {hash, compare} from 'bcryptjs';
 
 const SECRET_KEY = process.env.SECRET_KEY!;
 
@@ -16,4 +17,16 @@ export function signToken(payload: JwtPayload) {
 
 export function verifyToken(token: string): JwtPayload {
   return jwt.verify(token, SECRET_KEY) as JwtPayload;
+}
+
+ 
+export async function hashPassword(password:string) {
+  const saltRounds = 10;
+  const hashedPassword = await hash(password, saltRounds);
+  return hashedPassword;
+}
+
+export async function comparePassword(password:string, hashedPassword:string) {
+  const isMatch = await compare(password, hashedPassword);
+  return isMatch;
 }

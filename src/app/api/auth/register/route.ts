@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import pool from "../lib/db";
-import { hashPassword } from "../lib/hash";
-import { signToken } from "../lib/auth";
+import pool from "@/lib/db";
+import { hashPassword ,signToken } from "@/lib/auth";
 import { cookies } from "next/headers";
 
 export async function POST(req: Request) {

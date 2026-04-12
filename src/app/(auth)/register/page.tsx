@@ -1,8 +1,8 @@
-import AuthForm from "../components/authform"
+import AuthForm from "../components/authform";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export default async function Login() {
+export default async function Register() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token");
 
@@ -10,5 +10,5 @@ export default async function Login() {
     redirect("/dashboard");
   }
 
-  return <AuthForm type="login" />;
+  return <AuthForm type="register" />;
 }

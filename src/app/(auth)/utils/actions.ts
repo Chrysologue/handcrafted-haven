@@ -1,52 +1,52 @@
 "use server";
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-export async function registerAction(form: FormData) {
-  const username = form.get("username") as string;
-  const email = form.get("email") as string;
-  const password = form.get("password") as string;
+import { z } from "zod";
+import { redirect } from "next/navigation";
 
-  if (!username || !email || !password) {
-    return { error: "All fields are required" };
-  }
+// =======================
+// SCHEMAS ZOD
+// =======================
 
-  try {
-    const res = await fetch(`${BASE_URL}/api/auth/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, email, password }),
-    });
+const loginSchema = z.object({
+  email: z.string().email("Invalid email"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
 
-    if (!res.ok) {
-      const error = await res.json();
-      return { error: error.message || "Registration failed" };
-    }
+const registerSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  email: z.string().email("Invalid email"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
 
-    const result = await res.json();
-    return { success: true, data: result };
-
-  } catch (err) {
-    return { error: "Registration failed" };
-  }
-}
+// =======================
+// LOGIN
+// =======================
 
 export async function loginAction(form: FormData) {
-  const email = form.get("email") as string;
-  const password = form.get("password") as string;
+  const data = {
+    email: form.get("email"),
+    password: form.get("password"),
+  };
 
-  if (!email || !password) {
-    return { error: "Email and password are required" };
+  const parsed = loginSchema.safeParse(data);
+
+  if (!parsed.success) {
+    return { error: parsed.error.message };
   }
 
+  const { email, password } = parsed.data;
+
   try {
-    const res = await fetch(`${BASE_URL}/api/auth/login`, {
+    const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      credentials: "include",
+      body: JSON.stringify({
+        email: email.toLowerCase().trim(),
+        password,
+      }),
     });
 
     if (!res.ok) {
@@ -54,24 +54,77 @@ export async function loginAction(form: FormData) {
       return { error: error.message || "Login failed" };
     }
 
-    const result = await res.json();
-    return { success: true, data: result };
+    // autoredirect
+    redirect("/dashboard");
 
   } catch (err) {
+    console.error("LOGIN ACTION ERROR:", err);
     return { error: "Login failed" };
   }
 }
 
+// =======================
+// REGISTER
+// =======================
+
+export async function registerAction(form: FormData) {
+  const data = {
+    username: form.get("username"),
+    email: form.get("email"),
+    password: form.get("password"),
+  };
+
+  const parsed = registerSchema.safeParse(data);
+
+  if (!parsed.success) {
+    return { error: parsed.error.message };
+  }
+
+  const { username, email, password } = parsed.data;
+
+  try {
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        username: username.trim(),
+        email: email.toLowerCase().trim(),
+        password,
+      }),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      return { error: error.message || "Registration failed" };
+    }
+
+    // autoredirect
+    redirect("/dashboard");
+
+  } catch (err) {
+    console.error("REGISTER ACTION ERROR:", err);
+    return { error: "Registration failed" };
+  }
+}
+
+// =======================
+// LOGOUT
+// =======================
 
 export async function logoutAction() {
   try {
-    
-  await fetch(`${BASE_URL}/api/auth/logout`, {
-  method: "POST",
-});
+    await fetch("/api/auth/logout", {
+      method: "POST",
+      credentials: "include",
+    });
 
-    return { success: true };
+    redirect("/login");
+
   } catch (err) {
+    console.error("LOGOUT ACTION ERROR:", err);
     return { error: "Logout failed" };
   }
 }

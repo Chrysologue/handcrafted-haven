@@ -38,16 +38,22 @@ CREATE INDEX IF NOT EXISTS idx_products_is_featured ON products(is_featured);
 CREATE INDEX IF NOT EXISTS idx_reviews_product_id ON reviews(product_id);
 
 
---USERS-----------------------------------
--- Create users table
-CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        username VARCHAR(255) NOT NULL,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        password TEXT NOT NULL,
-        role VARCHAR(50) DEFAULT 'user',
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- =========================
+-- USERS TABLE
+-- =========================
 
---relation: reviews with users
- ALTER TABLE reviews
-      ADD COLUMN IF NOT EXISTS user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    role VARCHAR(50) DEFAULT 'user',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =========================
+-- RELATION: REVIEWS -> USERS
+-- =========================
+
+ALTER TABLE reviews
+ADD COLUMN IF NOT EXISTS user_id INTEGER REFERENCES users(id) ON DELETE SET NULL;

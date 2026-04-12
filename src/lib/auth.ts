@@ -30,3 +30,14 @@ export async function comparePassword(password:string, hashedPassword:string) {
   const isMatch = await compare(password, hashedPassword);
   return isMatch;
 }
+
+import { Pool } from "pg";
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
+
+export default pool;

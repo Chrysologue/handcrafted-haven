@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import pool from "@/lib/db";
+import pool from "@/lib/auth";
 import { comparePassword,signToken } from "@/lib/auth";
 import { cookies } from "next/headers";
 

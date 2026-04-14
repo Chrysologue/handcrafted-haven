@@ -128,3 +128,126 @@ async function seedDatabase() {
 }
 
 seedDatabase();
+
+// // Additional Products
+
+// {
+//   name: "Handwoven Wool Throw Blanket",
+//   artisan: "Elena Vargas",
+//   category: "Textiles",
+//   price: 68.5,
+//   image: "/products/hg5.webp",
+//   description: "Cozy handwoven wool throw blanket featuring traditional Andean patterns and natural dyes.",
+//   location: "Peru",
+//   is_featured: true,
+//   rating: 4.9,
+//   reviews: 47
+// },
+// {
+//   name: "Hand-Carved Wooden Spoon Set",
+//   artisan: "Kwame Osei",
+//   category: "Woodwork",
+//   price: 22.99,
+//   image: "/products/hg6.webp",
+//   description: "Set of 4 hand-carved wooden cooking spoons made from sustainably sourced olive wood.",
+//   location: "Ghana",
+//   is_featured: true,
+//   rating: 4.7,
+//   reviews: 29
+// },
+// {
+//   name: "Hand-Painted Porcelain Tea Set",
+//   artisan: "Yuki Tanaka",
+//   category: "Pottery",
+//   price: 55.0,
+//   image: "/products/hg7.webp",
+//   description: "Delicate 4-piece porcelain tea set with intricate cherry blossom hand-painting.",
+//   location: "Japan",
+//   is_featured: false,
+//   rating: 4.8,
+//   reviews: 15
+// },
+// {
+//   name: "Sterling Silver Hoop Earrings",
+//   artisan: "Fatima Al-Sayed",
+//   category: "Jewelry",
+//   price: 38.75,
+//   image: "/products/hg8.webp",
+//   description: "Elegant hand-hammered sterling silver hoop earrings with subtle texture details.",
+//   location: "Egypt",
+//   is_featured: true,
+//   rating: 4.6,
+//   reviews: 33
+// },
+// {
+//   name: "Natural Beeswax Candle Trio",
+//   artisan: "Liam O'Connor",
+//   category: "Home & Living",
+//   price: 19.5,
+//   image: "/products/hg9.webp",
+//   description: "Set of 3 hand-poured pure beeswax candles scented with essential oils in rustic jars.",
+//   location: "Ireland",
+//   is_featured: false,
+//   rating: 4.9,
+//   reviews: 41
+// },
+// {
+//   name: "Embroidered Linen Napkin Set",
+//   artisan: "Sofia Rossi",
+//   category: "Textiles",
+//   price: 24.99,
+//   image: "/products/hg10.webp",
+//   description: "Set of 6 hand-embroidered linen napkins with floral botanical motifs.",
+//   location: "Italy",
+//   is_featured: true,
+//   rating: 4.5,
+//   reviews: 22
+// },
+// {
+//   name: "Woven Seagrass Storage Basket",
+//   artisan: "Nguyen Thi Lan",
+//   category: "Basketry",
+//   price: 29.0,
+//   image: "/products/hg11.webp",
+//   description: "Large handwoven seagrass basket with lid, perfect for storage or laundry.",
+//   location: "Vietnam",
+//   is_featured: false,
+//   rating: 4.8,
+//   reviews: 19
+// },
+// {
+//   name: "Blown Glass Tumbler Set",
+//   artisan: "Pierre Dubois",
+//   category: "Glasswork",
+//   price: 42.5,
+//   image: "/products/hg12.webp",
+//   description: "Set of 4 hand-blown recycled glass tumblers with unique bubble patterns.",
+//   location: "France",
+//   is_featured: true,
+//   rating: 4.7,
+//   reviews: 26
+// },
+// {
+//   name: "Hand-Tooled Leather Card Holder",
+//   artisan: "Diego Morales",
+//   category: "Leatherwork",
+//   price: 17.25,
+//   image: "/products/hg13.webp",
+//   description: "Slim hand-tooled vegetable-tanned leather card holder with geometric patterns.",
+//   location: "Argentina",
+//   is_featured: false,
+//   rating: 4.6,
+//   reviews: 38
+// },
+// {
+//   name: "Macrame Wall Hanging",
+//   artisan: "Amina Diallo",
+//   category: "Textiles",
+//   price: 31.99,
+//   image: "/products/hg14.webp",
+//   description: "Bohemian-style hand-knotted macrame wall hanging made with natural cotton cord.",
+//   location: "Senegal",
+//   is_featured: true,
+//   rating: 4.8,
+//   reviews: 24
+// }

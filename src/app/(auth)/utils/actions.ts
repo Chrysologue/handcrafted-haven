@@ -2,6 +2,8 @@
 
 import { z } from "zod";
 import { redirect } from "next/navigation";
+import { loginUser, registerUser } from "@/lib/auth-service";
+import { cookies } from "next/headers";
 
 // =======================
 // SCHEMAS ZOD
@@ -28,38 +30,23 @@ export async function loginAction(form: FormData) {
     password: form.get("password"),
   };
 
-  const parsed = loginSchema.safeParse(data);
-
-  if (!parsed.success) {
-    return { error: parsed.error.message };
-  }
-
-  const { email, password } = parsed.data;
-
   try {
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        email: email.toLowerCase().trim(),
-        password,
-      }),
+    const { token } = await loginUser(data);
+
+    const cookieStore = await cookies();
+
+    cookieStore.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60,
     });
 
-    if (!res.ok) {
-      const error = await res.json();
-      return { error: error.message || "Login failed" };
-    }
+    return { success: true };
 
-    // autoredirect
-    redirect("/dashboard");
-
-  } catch (err) {
-    console.error("LOGIN ACTION ERROR:", err);
-    return { error: "Login failed" };
+  } catch (err: any) {
+    return { error: err.message || "Login failed" };
   }
 }
 
@@ -80,33 +67,23 @@ export async function registerAction(form: FormData) {
     return { error: parsed.error.message };
   }
 
-  const { username, email, password } = parsed.data;
-
   try {
-    const res = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        username: username.trim(),
-        email: email.toLowerCase().trim(),
-        password,
-      }),
+    const { token } = await registerUser(parsed.data);
+
+    const cookieStore = await cookies();
+
+    cookieStore.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      path: "/",
+      maxAge: 60 * 60,
     });
 
-    if (!res.ok) {
-      const error = await res.json();
-      return { error: error.message || "Registration failed" };
-    }
+    return { success: true };
 
-    // autoredirect
-    redirect("/dashboard");
-
-  } catch (err) {
-    console.error("REGISTER ACTION ERROR:", err);
-    return { error: "Registration failed" };
+  } catch (err: any) {
+    return { error: err.message || "Registration failed" };
   }
 }
 
@@ -115,16 +92,13 @@ export async function registerAction(form: FormData) {
 // =======================
 
 export async function logoutAction() {
-  try {
-    await fetch("/api/auth/logout", {
-      method: "POST",
-      credentials: "include",
-    });
+  const cookieStore = await cookies();
 
-    redirect("/login");
+  cookieStore.set("token", "", {
+    path: "/",
+    maxAge: 0,
+  });
 
-  } catch (err) {
-    console.error("LOGOUT ACTION ERROR:", err);
-    return { error: "Logout failed" };
-  }
+  redirect("/login");
 }
+

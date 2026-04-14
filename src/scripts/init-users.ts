@@ -1,5 +1,5 @@
 import "dotenv/config";
-import pool from "../lib/auth.ts";
+import pool from "../lib/auth";
 
 async function listTables() {
   const res = await pool.query(`

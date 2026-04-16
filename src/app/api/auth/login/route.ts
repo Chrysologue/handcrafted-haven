@@ -41,7 +41,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Create token (fix: ensure string id)
+    // Create token
     const token = signToken({
       id: user.id.toString(),
       role: user.role,
@@ -53,7 +53,7 @@ export async function POST(req: Request) {
       success: true,
     });
 
-    // Set cookie (clean + Next.js correct approach)
+    // Set cookie (clean Next.js approach)
     response.cookies.set({
       name: "token",
       value: token,
@@ -61,7 +61,7 @@ export async function POST(req: Request) {
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60, // 1 hour
+      maxAge: 60 * 60,
     });
 
     return response;
@@ -75,4 +75,4 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
-}
+}git add src/app/api/auth/login/route.ts

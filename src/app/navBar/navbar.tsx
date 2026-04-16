@@ -15,7 +15,9 @@ export default function Header({ isLoggedIn = false }: HeaderProps) {
   const navLinks = [
     { name: "Products", href: "/products" },
     { name: "Favorites", href: "/favorites" },
-    isLoggedIn ? { name: "Your Profile", href: "/yourProfile" } : { name: "Log In", href: "/login" },
+    isLoggedIn
+      ? { name: "Your Profile", href: "/yourProfile" }
+      : { name: "Log In", href: "/login" },
     !isLoggedIn ? { name: "Register", href: "/register" } : null,
     { name: "Trending", href: "/trending" },
     { name: "About", href: "/about" },
@@ -98,16 +100,14 @@ export default function Header({ isLoggedIn = false }: HeaderProps) {
               ))}
             </nav>
             {/* Mobile Search Bar */}
-            {pathname === '/products' && (
-              <div className="px-2 pb-3">
-                <SearchBar />
-              </div>
+            {pathname === "/products" && (
+              <div className="px-2 pb-3">{/* <SearchBar /> */}</div>
             )}
           </div>
         )}
 
         {/* Search Bar - Desktop */}
-        {pathname === '/products' && <SearchBar/>}
+        {/* {pathname === "/products" && <SearchBar />} */}
       </div>
     </header>
   );

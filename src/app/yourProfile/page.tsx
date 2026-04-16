@@ -21,12 +21,16 @@ const YourProfile: React.FC = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch('/api/user');
+        const response = await fetch('/api/user', {
+          credentials: 'include',
+        });
         if (response.ok) {
           const data = await response.json();
           setUser(data.user);
           setUsername(data.user.username);
           setEmail(data.user.email);
+        } else if (response.status === 401) {
+          setMessage('Please log in to view your profile.');
         } else {
           setMessage('Failed to load user data');
         }
@@ -48,6 +52,7 @@ const YourProfile: React.FC = () => {
     try {
       const response = await fetch('/api/user/update', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },

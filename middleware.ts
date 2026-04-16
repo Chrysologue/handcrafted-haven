@@ -16,6 +16,8 @@ export function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
   const { pathname } = req.nextUrl;
 
+  console.log("Middleware - Path:", pathname, "Token received:", token ? "present" : "missing");
+
   const isProtected =
     pathname.startsWith("/dashboard") || pathname.startsWith("/admin");
 
@@ -24,11 +26,13 @@ export function middleware(req: NextRequest) {
   }
 
   if (!token) {
+    console.log("Middleware - No token, redirecting to login");
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
   try {
     const user = jwt.verify(token, SECRET_KEY) as JwtPayload;
+    console.log("Middleware - Token verified for user:", user.id, "role:", user.role);
 
     if (!user || !user.role) {
       throw new Error("Invalid token");
@@ -40,6 +44,7 @@ export function middleware(req: NextRequest) {
 
     return NextResponse.next();
   } catch (error) {
+    console.log("Middleware - Verify error:", error);
     const response = NextResponse.redirect(new URL("/login", req.url));
     response.cookies.delete("token");
     return response;

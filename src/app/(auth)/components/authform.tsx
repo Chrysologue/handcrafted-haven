@@ -48,7 +48,7 @@ export default function AuthForm({ type }: { type: string }) {
       }
 
       router.push("/dashboard");
-      router.refresh();
+      // router.refresh(); // Remove this to avoid potential issues
     } catch (err) {
       setError("Network error");
     } finally {

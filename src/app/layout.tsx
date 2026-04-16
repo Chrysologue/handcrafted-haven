@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Roboto_Slab } from "next/font/google";
 import { Suspense } from "react";
+import { cookies } from "next/headers";
 import "./globals.css";
 import Footer from "./Footer/page";
 import Header from "./navBar/navbar";
@@ -27,11 +28,15 @@ export const metadata: Metadata = {
   description: "Official website of the e-commerce site Handcrafted Haven",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookiesStore = await cookies();
+  const token = cookiesStore.get("token");
+  const isLoggedIn = Boolean(token);
+
   return (
     <html
       lang="en"
@@ -47,7 +52,7 @@ export default function RootLayout({
         <FavoritesProvider>
           <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
             <Suspense fallback={<div>Loading...</div>}>
-              <Header />
+              <Header isLoggedIn={isLoggedIn} />
             </Suspense>
           </div>
           <main>{children}</main>

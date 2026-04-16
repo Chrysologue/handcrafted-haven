@@ -5,23 +5,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface HeaderProps {
-  onSearch?: (searchTerm: string) => void;
+  isLoggedIn?: boolean;
 }
 
-export default function Header({ onSearch }: HeaderProps) {
-  const [searchTerm, setSearchTerm] = useState("");
+export default function Header({ isLoggedIn = false }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
   const navLinks = [
     { name: "Products", href: "/products" },
     { name: "Favorites", href: "/favorites" },
-    { name: "Log In", href: "/login" },
-    { name: "Register", href: "/register" },
+    isLoggedIn ? { name: "Your Profile", href: "/yourProfile" } : { name: "Log In", href: "/login" },
+    !isLoggedIn ? { name: "Register", href: "/register" } : null,
     { name: "Trending", href: "/trending" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
-  ];
+  ].filter(Boolean) as { name: string; href: string }[];
 
   return (
     <header className="width-full top-0 z-50 bg-[var(--background)] border-b border-gray-200 dark:border-gray-800">

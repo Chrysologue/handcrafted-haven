@@ -4,7 +4,6 @@ import pool from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   try {
-    // Get token from cookies
     const token = request.cookies.get("token")?.value;
 
     if (!token) {
@@ -16,7 +15,6 @@ export async function GET(request: NextRequest) {
 
     const decoded = verifyToken(token);
 
-    // Convert id safely for DB query
     const userId = parseInt(decoded.id.toString());
 
     const result = await pool.query(
@@ -31,11 +29,12 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const user = result.rows[0];
-
-    return NextResponse.json({ user });
+    return NextResponse.json({
+      user: result.rows[0],
+    });
   } catch (error) {
     console.error("GET USER ERROR:", error);
+
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

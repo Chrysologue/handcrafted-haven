@@ -41,19 +41,16 @@ export async function POST(req: Request) {
       );
     }
 
-    // Create token
     const token = signToken({
       id: user.id.toString(),
       role: user.role,
     });
 
-    // Create response
     const response = NextResponse.json({
       message: "Logged in",
       success: true,
     });
 
-    // Set cookie (clean Next.js approach)
     response.cookies.set({
       name: "token",
       value: token,
@@ -67,6 +64,7 @@ export async function POST(req: Request) {
     return response;
   } catch (err) {
     console.error("LOGIN ERROR:", err);
+
     return NextResponse.json(
       {
         message: "Server error",

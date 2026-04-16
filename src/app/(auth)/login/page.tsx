@@ -1,4 +1,4 @@
-import AuthForm from "../components/authform"
+import AuthForm from "../components/authform";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 

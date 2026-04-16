@@ -1,39 +1,52 @@
 import { NextResponse } from "next/server";
 import pool from "@/lib/auth";
-import { hashPassword ,signToken } from "@/lib/auth";
-import { cookies } from "next/headers";
+import { hashPassword, signToken } from "@/lib/auth";
 
 export async function POST(req: Request) {
   try {
     const { username, email, password } = await req.json();
 
     if (!username || !email || !password) {
-      return NextResponse.json({ message: "Missing fields" }, { status: 400 });
+      return NextResponse.json(
+        { message: "Missing fields" },
+        { status: 400 }
+      );
     }
 
     const normalizedEmail = email.toLowerCase().trim();
     const cleanUsername = username.trim();
 
     if (!normalizedEmail.includes("@")) {
-      return NextResponse.json({ message: "Invalid email" }, { status: 400 });
+      return NextResponse.json(
+        { message: "Invalid email" },
+        { status: 400 }
+      );
     }
 
     if (cleanUsername.length < 3) {
-      return NextResponse.json({ message: "Invalid username" }, { status: 400 });
+      return NextResponse.json(
+        { message: "Invalid username" },
+        { status: 400 }
+      );
     }
 
     if (password.length < 8) {
-      return NextResponse.json({ message: "Password too short" }, { status: 400 });
+      return NextResponse.json(
+        { message: "Password too short" },
+        { status: 400 }
+      );
     }
 
-    // if exists usr
     const existing = await pool.query(
       `SELECT id FROM users WHERE email = $1`,
       [normalizedEmail]
     );
 
     if (existing.rows.length > 0) {
-      return NextResponse.json({ message: "User already exists" }, { status: 400 });
+      return NextResponse.json(
+        { message: "User already exists" },
+        { status: 400 }
+      );
     }
 
     const hashed = await hashPassword(password);
@@ -48,13 +61,18 @@ export async function POST(req: Request) {
     const user = result.rows[0];
 
     const token = signToken({
-      id: user.id,
+      id: user.id.toString(),
       role: user.role,
     });
 
-    const cookieStore = await cookies();
+    const response = NextResponse.json({
+      message: "User created",
+      success: true,
+    });
 
-    cookieStore.set("token", token, {
+    response.cookies.set({
+      name: "token",
+      value: token,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -62,10 +80,13 @@ export async function POST(req: Request) {
       maxAge: 60 * 60,
     });
 
-    return NextResponse.json({ message: "User created" });
-
+    return response;
   } catch (err) {
     console.error("REGISTER ERROR:", err);
-    return NextResponse.json({ message: "Server error" }, { status: 500 });
+
+    return NextResponse.json(
+      { message: "Server error" },
+      { status: 500 }
+    );
   }
 }

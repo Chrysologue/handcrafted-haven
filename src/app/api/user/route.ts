@@ -35,24 +35,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyToken } from "@/lib/auth";
 import pool from "@/lib/auth";
-import { cookies } from "next/headers"; // Add this import
 
 export async function GET(request: NextRequest) {
   try {
-    // Use the new async cookies() API instead of request.cookies
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
+    // Get token from cookies
+    const token = request.cookies.get("token")?.value;
 
     if (!token) {
       return NextResponse.json({ error: "No token provided" }, { status: 401 });
     }
 
     const decoded = verifyToken(token);
-    const userId = decoded.id;
+    // decoded.id might be string or number, convert to number for database query
+    const userId = parseInt(decoded.id.toString());
 
     const result = await pool.query(
       "SELECT id, username, email, role FROM users WHERE id = $1",
-      [userId],
+      [userId], // Use the converted number
     );
 
     if (result.rows.length === 0) {

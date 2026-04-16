@@ -16,11 +16,11 @@ export function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
   const { pathname } = req.nextUrl;
 
-  if (
-    (pathname.startsWith("/login") || pathname.startsWith("/register")) &&
-    token
-  ) {
-    return NextResponse.redirect(new URL("/dashboard", req.url));
+  const isProtected =
+    pathname.startsWith("/dashboard") || pathname.startsWith("/admin");
+
+  if (!isProtected) {
+    return NextResponse.next();
   }
 
   if (!token) {
@@ -31,7 +31,7 @@ export function middleware(req: NextRequest) {
     const user = jwt.verify(token, SECRET_KEY) as JwtPayload;
 
     if (!user || !user.role) {
-      throw new Error("Invalid token structure");
+      throw new Error("Invalid token");
     }
 
     if (pathname.startsWith("/admin") && user.role !== "admin") {
@@ -39,7 +39,7 @@ export function middleware(req: NextRequest) {
     }
 
     return NextResponse.next();
-  } catch (err: any) {
+  } catch (error) {
     const response = NextResponse.redirect(new URL("/login", req.url));
     response.cookies.delete("token");
     return response;

@@ -30,21 +30,26 @@ export async function loginAction(form: FormData) {
     password: form.get("password"),
   };
 
+  const parsed = loginSchema.safeParse(data);
+
+  if (!parsed.success) {
+    return { error: parsed.error.message };
+  }
+
   try {
-    const { token } = await loginUser(data);
+    const { token } = await loginUser(parsed.data);
 
     const cookieStore = await cookies();
 
     cookieStore.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       path: "/",
       maxAge: 60 * 60,
     });
 
     return { success: true };
-
   } catch (err: any) {
     return { error: err.message || "Login failed" };
   }
@@ -75,13 +80,12 @@ export async function registerAction(form: FormData) {
     cookieStore.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax",
       path: "/",
       maxAge: 60 * 60,
     });
 
     return { success: true };
-
   } catch (err: any) {
     return { error: err.message || "Registration failed" };
   }
@@ -94,11 +98,10 @@ export async function registerAction(form: FormData) {
 export async function logoutAction() {
   const cookieStore = await cookies();
 
-  cookieStore.set("token", "", {
+  await cookieStore.set("token", "", {
     path: "/",
     maxAge: 0,
   });
 
   redirect("/login");
 }
-

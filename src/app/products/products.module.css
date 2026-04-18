@@ -408,6 +408,45 @@
   font-size: 16px;
 }
 
+.adminControls {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #d9d8c7;
+}
+
+.adminControlsFeatured {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.manageProductsBtn {
+  width: 100%;
+  background: linear-gradient(135deg, #36453b, #2a3630);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.adminControlsFeatured .manageProductsBtn {
+  width: auto;
+  background: #36453b;
+}
+
+.manageProductsBtn:hover {
+  background: #596869;
+  transform: translateY(-2px);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .productsPage {

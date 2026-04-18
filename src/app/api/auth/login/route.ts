@@ -48,10 +48,10 @@ export async function POST(req: Request) {
       name: "token",
       value: token,
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      secure: true, // ✅ keep true for production (Vercel is HTTPS)
+      sameSite: "lax", // ✅ safe default
       path: "/",
-      maxAge: 60 * 60,
+      maxAge: 60 * 60 * 24, // 1 day
     });
 
     return response;

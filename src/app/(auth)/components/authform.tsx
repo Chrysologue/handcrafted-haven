@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -37,6 +37,7 @@ export default function AuthForm({ type }: { type: string }) {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include", // ✅  ensuring cookies persist in production
         body: JSON.stringify(payload),
       });
 
@@ -47,7 +48,10 @@ export default function AuthForm({ type }: { type: string }) {
         return;
       }
 
-      router.push("/dashboard");
+      // small delay ensures cookie is written before navigation
+      await new Promise((r) => setTimeout(r, 100));
+
+      router.replace("/dashboard"); // ✅ Replacing  push by replace
       router.refresh();
     } catch (err) {
       setError("Network error");
@@ -58,14 +62,12 @@ export default function AuthForm({ type }: { type: string }) {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 px-4">
-
       <motion.form
         onSubmit={handleSubmit}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-8 shadow-2xl"
       >
-
         <h1 className="text-2xl font-semibold text-white text-center mb-6">
           {type === "register" ? "Create Account" : "Welcome Back"}
         </h1>
@@ -104,8 +106,8 @@ export default function AuthForm({ type }: { type: string }) {
           {loading
             ? "Processing..."
             : type === "register"
-            ? "Create Account"
-            : "Login"}
+              ? "Create Account"
+              : "Login"}
         </Button>
 
         <p className="text-gray-400 text-sm text-center mt-6">
@@ -119,7 +121,6 @@ export default function AuthForm({ type }: { type: string }) {
             {type === "register" ? "Login" : "Register"}
           </a>
         </p>
-
       </motion.form>
     </div>
   );

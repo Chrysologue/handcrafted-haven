@@ -48,7 +48,8 @@ export default function AuthForm({ type }: { type: string }) {
         return;
       }
 
-       window.location.href = "/dashboard";
+      router.replace("/dashboard");
+      router.refresh();
     } catch (err) {
       setError("Network error");
     } finally {

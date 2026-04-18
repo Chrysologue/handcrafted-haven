@@ -48,11 +48,7 @@ export default function AuthForm({ type }: { type: string }) {
         return;
       }
 
-      // small delay ensures cookie is written before navigation
-      await new Promise((r) => setTimeout(r, 100));
-
-      router.replace("/dashboard"); // ✅ Replacing  push by replace
-      router.refresh();
+       window.location.href = "/dashboard";
     } catch (err) {
       setError("Network error");
     } finally {
